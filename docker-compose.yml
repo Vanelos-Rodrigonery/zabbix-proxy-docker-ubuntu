@@ -7,10 +7,15 @@ services:
       - "10051:10051"
     volumes:
       - ./zbx_env/var/lib/zabbix:/var/lib/zabbix
+      - ./zabbix_proxy.psk:/var/lib/zabbix/zabbix_proxy.psk:ro
     environment:
       - ZBX_HOSTNAME=${PROXY_HOSTNAME}
       - ZBX_SERVER_HOST=${SERVER_IP}
       - ZBX_PROXYMODE=0
+      - ZBX_TLSCONNECT=psk
+      - ZBX_TLSACCEPT=psk
+      - ZBX_TLSPSKIDENTITY=PSK-${PROXY_HOSTNAME}
+      - ZBX_TLSPSKFILE=/var/lib/zabbix/zabbix_proxy.psk
 
   zabbix-agent2:
     image: zabbix/zabbix-agent2:ubuntu-6.4-latest
