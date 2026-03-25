@@ -1,0 +1,25 @@
+services:
+  zabbix-proxy:
+    image: zabbix/zabbix-proxy-sqlite3:ubuntu-6.4-latest
+    container_name: zabbix-proxy
+    restart: always
+    ports:
+      - "10051:10051"
+    volumes:
+      - ./zbx_env/var/lib/zabbix:/var/lib/zabbix
+    environment:
+      - ZBX_HOSTNAME=${PROXY_HOSTNAME}
+      - ZBX_SERVER_HOST=${SERVER_IP}
+      - ZBX_PROXYMODE=0
+
+  zabbix-agent2:
+    image: zabbix/zabbix-agent2:ubuntu-6.4-latest
+    container_name: zabbix-agent2
+    restart: always
+    ports:
+      - "10050:10050"
+    environment:
+      - ZBX_HOSTNAME=${PROXY_HOSTNAME}-agent
+      - ZBX_SERVER_HOST=zabbix-proxy
+    depends_on:
+      - zabbix-proxy
