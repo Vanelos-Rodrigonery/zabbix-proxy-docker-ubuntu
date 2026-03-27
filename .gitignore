@@ -1,3 +1,4 @@
 .env
-zbx_env/
-*.psk
+zabbix_proxy_db/
+zabbix_proxy.psk
+
