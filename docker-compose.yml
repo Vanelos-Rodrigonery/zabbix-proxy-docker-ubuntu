@@ -1,6 +1,6 @@
 services:
   zabbix-proxy:
-    image: zabbix/zabbix-proxy-sqlite3:6.4-ubuntu-latest
+    image: zabbix/zabbix-proxy-sqlite3:ubuntu-7.0-latest
     container_name: zabbix-proxy
     restart: always
     ports:
